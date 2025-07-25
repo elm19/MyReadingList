@@ -2,23 +2,26 @@ import Link from "next/link";
 
 const HeroSection = () => {
   return (
-    <section className="relative flex flex-col items-center justify-center min-h-[60vh] text-center overflow-hidden">
-      {/* SVG Web Background */}
+    <section className="relative flex flex-col items-center justify-center min-h-[60vh] text-center overflow-visible">
+      {/* SVG Web Background - fixed, full width, hero height */}
       <svg
-        className="absolute inset-0 w-full h-full pointer-events-none z-0"
-        viewBox="0 0 1440 600"
+        className="fixed top-20 left-0 w-screen h-[70vh] pointer-events-none z-0"
+        width="100vw"
+        height="70vh"
+        viewBox="0 0 1920 600"
         fill="none"
+        preserveAspectRatio="none"
         xmlns="http://www.w3.org/2000/svg"
         aria-hidden="true"
       >
         {/* Vertical lines */}
-        {Array.from({ length: 15 }).map((_, i) => (
+        {Array.from({ length: 33 }).map((_, i) => (
           <line
             key={`v-${i}`}
-            x1={i * 96}
+            x1={i * 70}
             y1={0}
-            x2={i * 96}
-            y2={600}
+            x2={i * 50}
+            y2={700}
             stroke="#818cf8"
             strokeWidth="1"
             opacity="0.18"
@@ -29,9 +32,9 @@ const HeroSection = () => {
           <line
             key={`h-${i}`}
             x1={0}
-            y1={i * 50}
-            x2={1440}
-            y2={i * 50}
+            y1={i * 70}
+            x2={1920}
+            y2={i * 70}
             stroke="#818cf8"
             strokeWidth="1"
             opacity="0.18"

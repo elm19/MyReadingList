@@ -1,6 +1,8 @@
-const SignUp = () => {
+import { AuthForm } from "@/components/auth-form";
+export default function SignupPage() {
   return (
-    <div>SignUp</div>
-  )
+    <div className="w-full max-w-sm">
+      <AuthForm isSignUp />
+    </div>
+  );
 }
-export default SignUp
