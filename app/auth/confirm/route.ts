@@ -9,7 +9,7 @@ export async function GET(request: NextRequest) {
   const token_hash = searchParams.get('token_hash')
   const type = searchParams.get('type') as EmailOtpType | null
   const next = searchParams.get('next') ?? '/'
-
+  console.log('GET /auth/confirm', { token_hash, type, next })
   if (token_hash && type) {
     const supabase = await createClient()
 
@@ -17,11 +17,15 @@ export async function GET(request: NextRequest) {
       type,
       token_hash,
     })
+    console.log('verifyOtp', { type, token_hash, error })
+
     if (!error) {
       // redirect user to specified redirect URL or root of app
-      redirect(next)
+      console.log('Email verified successfully, redirecting to:', next)
+      return redirect("/sign-in?verified=true")
     }
   }
+  console.error('Error verifying email OTP:')
 
   // redirect the user to an error page with some instructions
   redirect('/error')
