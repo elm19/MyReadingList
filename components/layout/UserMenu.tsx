@@ -34,13 +34,13 @@ const UserMenu = ({ user }: UserMenuProps) => {
         </MenubarTrigger>
         <MenubarContent>
           <MenubarItem>
-            <Link href="/novel-lists">My Lists</Link>
+            <Link href="/book-lists">My Lists</Link>
           </MenubarItem>
           <MenubarItem>
             <Link href="/profile">Profile</Link>
           </MenubarItem>
           <MenubarItem>
-            <Link href="/novel-lists/new">Add New List</Link>
+            <Link href="/book-lists/new">Add New List</Link>
           </MenubarItem>
           <MenubarSeparator />
           

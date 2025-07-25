@@ -160,7 +160,7 @@ export function AuthForm({
             {isGooglePending ? <Spinner className="mr-2" /> : <FcGoogle className="mr-2" />}
             {isSignUp ? "Sign up with Google" : "Login with Google"}
           </Button>
-          <Link href="/novels" passHref>
+          <Link href="/books" passHref>
             <Button variant="ghost" className="w-full text-muted-foreground hover:text-primary" disabled={isPending}>
               Continue as Guest
             </Button>

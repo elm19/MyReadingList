@@ -4,7 +4,7 @@
 //         href: "/",
 //     },
 //     {
-//         title: "Novel List",
+//         title: "Book List",
 //         href: "/reading-list",
 //     },
 //     {
