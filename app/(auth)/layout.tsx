@@ -43,7 +43,7 @@ export default function AuthLayout({
       </div>
 
       {/* Right side - form */}
-      <div className="flex-1 flex flex-col justify-center items-center p-4 sm:p-8 lg:p-12 bg-white dark:bg-gray-900">
+      <div className="flex-1 z-1 flex flex-col justify-center items-center p-4 sm:p-8 lg:p-12 bg-white dark:bg-gray-900">
         <div className="w-full max-w-md">
           {children}
         </div>
