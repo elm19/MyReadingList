@@ -12,7 +12,7 @@ const Header = async () => {
   const user = await getUser();
 
   return (
-    <header className="flex z-1 items-center h-20 w-full px-5 bg-white dark:bg-gray-950 justify-between">
+    <header className="flex z-50 items-center h-20 w-full px-5 bg-white dark:bg-gray-950 justify-between">
       <div className="flex items-center space-x-12">
         <Link href="/">
           <Logo />

@@ -15,7 +15,6 @@ import { Skeleton } from "./ui/skeleton";
 
 export const SearchInput = () => {
   const [query, setQuery] = useState("");
-  const [queryType, setQueryType] = useState("");
 
   const [userChecked, setUserChecked] = useState(false);
   const [listsChecked, setListsChecked] = useState(true);
@@ -23,7 +22,6 @@ export const SearchInput = () => {
   const [focused, setFocused] = useState(false);
   const redirectToSearchPage = () => {
     console.log(query);
-    console.log(queryType);
   };
 
   return (

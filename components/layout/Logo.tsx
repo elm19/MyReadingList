@@ -6,7 +6,7 @@ const Logo = () => {
       viewBox="0 0 84 54"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      className="w-20 h-auto"
+      className="w-14 h-auto sm:w-20"
     >
       <g clipPath="url(#clip0_1_2)">
         <rect width="84" height="54" className="dark:fill-black fill-white" />

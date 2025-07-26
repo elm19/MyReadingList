@@ -5,11 +5,11 @@ const HeroSection = () => {
     <section className="relative top-[-180px] flex flex-col items-center justify-center min-h-screen text-center overflow-visible">
       <div className="relative z-10 flex flex-col items-center">
         <h1 className="text-3xl sm:text-5xl  leading-tight mb-4">
-          Discover, Curate, and Share
+          Discover, Curate, and Share At
           <br />
           <span className="relative inline-block mt-2">
             <span className="bg-gradient-to-r from-primary-400 to-primary-600 bg-clip-text text-transparent">
-              MyReadingLists
+              MyReadingList
             </span>
             <span className="block h-2 w-full absolute left-0 bottom-0 bg-gradient-to-r from-primary-400 to-primary-600 opacity-30 rounded-lg" style={{ zIndex: -1 }}></span>
           </span>

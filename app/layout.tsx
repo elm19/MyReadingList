@@ -1,7 +1,8 @@
-import type { Metadata } from "next";
+
 import { Bricolage_Grotesque } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "next-themes";
+import { UserProvider } from "./context/UserContext";
 
 
 const bricolage = Bricolage_Grotesque({
@@ -9,10 +10,7 @@ const bricolage = Bricolage_Grotesque({
   subsets: ["latin"],
 });
 
-export const metadata: Metadata = {
-  title: "My Reading List",
-  description: "your git to reading management",
-};
+
 
 export default function RootLayout({
   children,
@@ -43,7 +41,7 @@ export default function RootLayout({
               y2={1080}
               stroke="#818cf8"
               strokeWidth="1"
-              opacity="0.18"
+              opacity="0.08"
             />
           ))}
           {/* Horizontal lines */}
@@ -56,7 +54,7 @@ export default function RootLayout({
               y2={i * 70}
               stroke="#818cf8"
               strokeWidth="1"
-              opacity="0.18"
+              opacity="0.08"
             />
           ))}
         </svg>
@@ -66,7 +64,12 @@ export default function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
-            {children}
+            <UserProvider>
+              {children}
+            </UserProvider>
+
+          
+            
             
         </ThemeProvider>
       </body>
