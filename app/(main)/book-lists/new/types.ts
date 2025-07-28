@@ -1,4 +1,3 @@
-import { Novel } from '@/lib/types';
 
 export interface BookListMetadata {
   name: string;

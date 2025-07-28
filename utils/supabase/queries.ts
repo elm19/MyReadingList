@@ -69,7 +69,7 @@ export const addNewBookList = async (list: List) => {
   const { data: existingBooks } = await supabase
     .from("books")
     .select("id")
-    .in("id", ids);
+    .in("id", ids); 
 
   const existingIds = new Set(existingBooks?.map((b) => b.id));
   const newBooks = novelsWithIds.filter((book) => !existingIds.has(book.id));
