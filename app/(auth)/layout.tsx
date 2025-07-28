@@ -22,7 +22,7 @@ export default function AuthLayout({
         <div className="relative z-10 flex flex-col items-center justify-center w-full p-12">
           <Link href="/" className="mb-8 transition-transform hover:scale-105">
             <h1 className="text-4xl font-bold bg-gradient-to-r from-primary-400 to-primary-600 bg-clip-text text-transparent">
-              MyReadingList
+              OurReadingList
             </h1>
           </Link>
           <div className="max-w-md text-center">

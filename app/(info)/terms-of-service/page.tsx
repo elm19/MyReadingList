@@ -1,8 +1,8 @@
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: "Terms of Service - MyReadingList",
-  description: "Review the terms and conditions for using MyReadingList.",
+  title: "Terms of Service - OurReadingList",
+  description: "Review the terms and conditions for using OurReadingList.",
 };
 
 export default function TermsOfServicePage() {
@@ -10,12 +10,12 @@ export default function TermsOfServicePage() {
     <div className="prose dark:prose-invert">
       <h1>Terms of Service</h1>
       <p>
-        These Terms of Service govern your use of MyReadingList. By accessing or using our service, you agree to be bound by these terms.
+        These Terms of Service govern your use of OurReadingList. By accessing or using our service, you agree to be bound by these terms.
         Please read them carefully.
       </p>
       <h2>1. Acceptance of Terms</h2>
       <p>
-        By using MyReadingList, you agree to comply with and be bound by these Terms of Service. If you do not agree to these terms, you may not use our service.
+        By using OurReadingList, you agree to comply with and be bound by these Terms of Service. If you do not agree to these terms, you may not use our service.
       </p>
       <h2>2. Changes to Terms</h2>
       <p>
@@ -24,7 +24,7 @@ export default function TermsOfServicePage() {
       </p>
       <h2>3. User Conduct</h2>
       <p>
-        You agree not to use the service for any unlawful purpose or in any way that could harm MyReadingList or its users.
+        You agree not to use the service for any unlawful purpose or in any way that could harm OurReadingList or its users.
       </p>
     </div>
   );

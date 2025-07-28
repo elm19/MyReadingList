@@ -1,8 +1,8 @@
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: "Books - MyReadingList",
-  description: "Discover and explore a wide range of books on MyReadingList.",
+  title: "Books - OurReadingList",
+  description: "Discover and explore a wide range of books on OurReadingList.",
 };
 
 export default function BooksPage() {

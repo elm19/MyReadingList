@@ -1,8 +1,8 @@
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: "Profile - MyReadingList",
-  description: "Manage your user profile and settings on MyReadingList.",
+  title: "Profile - OurReadingList",
+  description: "Manage your user profile and settings on OurReadingList.",
 };
 
 export default function ProfilePage() {

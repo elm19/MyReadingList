@@ -1,8 +1,8 @@
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: "DMCA Policy - MyReadingList",
-  description: "Information regarding MyReadingList' Digital Millennium Copyright Act (DMCA) policy.",
+  title: "DMCA Policy - OurReadingList",
+  description: "Information regarding OurReadingList' Digital Millennium Copyright Act (DMCA) policy.",
 };
 
 export default function DMCAPage() {
@@ -10,12 +10,12 @@ export default function DMCAPage() {
     <div className="prose dark:prose-invert">
       <h1>DMCA Policy</h1>
       <p>
-        MyReadingList respects the intellectual property rights of others and expects its users to do the same.
-        In accordance with the Digital Millennium Copyright Act of 1998 (DMCA), we will respond promptly to claims of copyright infringement committed using the MyReadingList service.
+        OurReadingList respects the intellectual property rights of others and expects its users to do the same.
+        In accordance with the Digital Millennium Copyright Act of 1998 (DMCA), we will respond promptly to claims of copyright infringement committed using the OurReadingList service.
       </p>
       <h2>1. Notification of Infringement</h2>
       <p>
-        If you are a copyright owner or an agent thereof and believe that any content on MyReadingList infringes upon your copyrights,
+        If you are a copyright owner or an agent thereof and believe that any content on OurReadingList infringes upon your copyrights,
         you may submit a notification pursuant to the DMCA by providing our Copyright Agent with the following information in writing:
       </p>
       <ul>

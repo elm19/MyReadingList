@@ -1,8 +1,8 @@
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: "Contact Us - MyReadingList",
-  description: "Get in touch with MyReadingList support and team.",
+  title: "Contact Us - OurReadingList",
+  description: "Get in touch with OurReadingList support and team.",
 };
 
 export default function ContactPage() {
@@ -14,7 +14,7 @@ export default function ContactPage() {
         feel free to reach out to us using the information below.
       </p>
       <p>
-        <strong>Email:</strong> support@myreadinglist.com
+        <strong>Email:</strong> support@ourreadinglist.com
       </p>
       <p>
         <strong>Address:</strong> 123 Bookworm Lane, Literary City, LC 12345

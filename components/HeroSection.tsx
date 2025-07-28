@@ -9,7 +9,7 @@ const HeroSection = () => {
           <br />
           <span className="relative inline-block mt-2">
             <span className="bg-gradient-to-r from-primary-400 to-primary-600 bg-clip-text text-transparent">
-              MyReadingList
+              OurReadingList
             </span>
             <span className="block h-2 w-full absolute left-0 bottom-0 bg-gradient-to-r from-primary-400 to-primary-600 opacity-30 rounded-lg" style={{ zIndex: -1 }}></span>
           </span>

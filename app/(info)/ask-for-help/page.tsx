@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: "Ask for Help - MyReadingList",
+  title: "Ask for Help - OurReadingList",
   description: "Find answers to your questions or submit a support request.",
 };
 
@@ -10,7 +10,7 @@ export default function AskForHelpPage() {
     <div className="prose dark:prose-invert">
       <h1>Ask for Help</h1>
       <p>
-        If you need assistance with MyReadingList, please check our Frequently Asked Questions (FAQ) section first.
+        If you need assistance with OurReadingList, please check our Frequently Asked Questions (FAQ) section first.
         If you can&apos;t find the answer there, feel free to submit a support request.
       </p>
       <h2>Frequently Asked Questions (FAQ)</h2>

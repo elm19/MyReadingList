@@ -12,7 +12,7 @@ export async function generateMetadata(
   const listName = id.replace(/-/g, ' ').split(' ').map((word) => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
 
   return {
-    title: `${listName} - Book List | MyReadingList`,
+    title: `${listName} - Book List | OurReadingList`,
     description: `Details of the book list: ${listName}.`,
   };
 }

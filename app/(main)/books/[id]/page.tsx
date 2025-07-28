@@ -11,7 +11,7 @@ export async function generateMetadata(
   const bookName = id.replace(/-/g, ' ').split(' ').map((word) => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
 
   return {
-    title: `${bookName} - Book Details | MyReadingList`,
+    title: `${bookName} - Book Details | OurReadingList`,
     description: `Details about the book: ${bookName}.`,
   };
 }

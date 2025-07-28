@@ -63,13 +63,13 @@ export const Footer = ({
   logo = {
     url: "/",
     src: "/images/logo.svg", // Assuming you have a logo.svg in public/images
-    alt: "My Reading List logo",
-    title: "My Reading List",
+    alt: "OurReading List logo",
+    title: "OurReading List",
   },
   sections = defaultSections,
   description = "Discover, curate, and share your reading journey.",
   socialLinks = defaultSocialLinks,
-  copyright = `© ${new Date().getFullYear()} My Reading List. All rights reserved.`,
+  copyright = `© ${new Date().getFullYear()} OurReadingList. All rights reserved.`,
   legalLinks = defaultLegalLinks,
 }: FooterProps) => {
   return (

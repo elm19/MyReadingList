@@ -9,7 +9,7 @@ export async function getUser() {
   const {
     data: { user },
   } = await supabase.auth.getUser()
-  return user
+  return {user, supabase}
 }
 
 export async function login(formData: FormData) {
@@ -23,10 +23,6 @@ export async function login(formData: FormData) {
   const { error } = await supabase.auth.signInWithPassword(data)
 
   if (error) {
-    // const errorMessage = error.message === 'Invalid login credentials'
-    //   ? 'Invalid email or password'
-    //   : error.message
-
     return { error: error.message }
   }
 

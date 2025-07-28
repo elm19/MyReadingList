@@ -13,7 +13,7 @@ export default function InfoLayout({
       <Toaster position="top-left" />
       <header className="w-full p-4 flex justify-between items-center border-b border-gray-200 dark:border-gray-800">
         <Link href="/" className="text-2xl font-bold text-primary-600 dark:text-primary-400">
-          MyReadingList
+          OurReadingList
         </Link>
         <ThemeSwitch />
       </header>
@@ -23,7 +23,7 @@ export default function InfoLayout({
         </div>
       </main>
       <footer className="w-full p-4 text-center text-sm text-gray-500 dark:text-gray-400 border-t border-gray-200 dark:border-gray-800">
-        © {new Date().getFullYear()} MyReadingList. All rights reserved.
+        © {new Date().getFullYear()} OurReadingList. All rights reserved.
       </footer>
     </div>
   );

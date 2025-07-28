@@ -9,7 +9,7 @@ import { getUser } from "@/app/(auth)/actions";
 import UserMenu from "./UserMenu";
 
 const Header = async () => {
-  const user = await getUser();
+  const {user} = await getUser();
 
   return (
     <header className="flex z-50 items-center h-20 w-full px-5 bg-white dark:bg-gray-950 justify-between">

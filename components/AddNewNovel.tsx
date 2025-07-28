@@ -14,9 +14,12 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useState } from "react";
 import { Textarea } from "./ui/textarea";
-import { PlusIcon } from "lucide-react";
+import { Edit2Icon, PlusIcon } from "lucide-react";
+import { Novel } from "@/lib/types";
 
 interface AddNewNovelProps {
+  type?: "new" | "edit";
+  book?: Novel | null;
   setNewBookName: (name: string) => void;
   newBookName: string;
 
@@ -26,13 +29,15 @@ interface AddNewNovelProps {
   newBookAuthor: string;
   setNewBookAuthor: (author: string) => void;
 
-  handleAddBook: () => void;
+  handleSave: () => void;
 }
 
 export function AddNewNovel({
+  type = "new",
+  book = null,
   setNewBookName,
   newBookName,
-  handleAddBook,
+  handleSave,
   newBookDescription,
   setNewBookDescription,
   newBookAuthor,
@@ -44,8 +49,18 @@ export function AddNewNovel({
     <Dialog>
       <form>
         <DialogTrigger asChild>
-          <Button variant="ghost" size={"lg"}>
-            <PlusIcon className="w-4 h-4 mr-2" />
+          <Button variant="outline" size={"sm"} onClick={() => {
+            if(type === "edit" && book){
+              setNewBookName(book.name)
+              setNewBookAuthor(book.author || "")
+              setNewBookDescription(book.description || "")
+            }
+          }}>
+            {type === "new" ? (
+              <PlusIcon className="w-4 h-4" />
+            ) : (
+              <Edit2Icon className="w-4 h-4" />
+            )}
           </Button>
         </DialogTrigger>
         <DialogContent className="sm:max-w-[625px]">
@@ -78,12 +93,12 @@ export function AddNewNovel({
             {showMore && (
               <div className="grid gap-3">
                 <Label htmlFor="newBookAuthor">Author (Optional)</Label>
-                    <Input
-                      id="newBookAuthor"
-                      placeholder="J.R.R. Tolkien"
-                      value={newBookAuthor}
-                      onChange={(e) => setNewBookAuthor(e.target.value)}
-                    />
+                <Input
+                  id="newBookAuthor"
+                  placeholder="J.R.R. Tolkien"
+                  value={newBookAuthor}
+                  onChange={(e) => setNewBookAuthor(e.target.value)}
+                />
               </div>
             )}
           </div>
@@ -92,7 +107,7 @@ export function AddNewNovel({
               {showMore ? "Hide More Options" : "Show More Options"}
             </Button>
             <DialogClose asChild>
-              <Button onClick={handleAddBook} variant="outline">
+              <Button onClick={handleSave} variant="outline">
                 Save
               </Button>
             </DialogClose>

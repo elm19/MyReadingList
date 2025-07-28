@@ -1,8 +1,8 @@
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: "Privacy Policy - MyReadingList",
-  description: "Understand how MyReadingList collects, uses, and protects your data.",
+  title: "Privacy Policy - OurReadingList",
+  description: "Understand how OurReadingList collects, uses, and protects your data.",
 };
 
 export default function PrivacyPolicyPage() {
@@ -10,7 +10,7 @@ export default function PrivacyPolicyPage() {
     <div className="prose dark:prose-invert">
       <h1>Privacy Policy</h1>
       <p>
-        Your privacy is important to us. This Privacy Policy explains how MyReadingList collects, uses, and protects your information.
+        Your privacy is important to us. This Privacy Policy explains how OurReadingList collects, uses, and protects your information.
       </p>
       <h2>1. Information We Collect</h2>
       <p>
