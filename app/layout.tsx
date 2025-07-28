@@ -3,6 +3,8 @@ import { Bricolage_Grotesque } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "next-themes";
 import { UserProvider } from "./context/UserContext";
+import Loader from "@/components/layout/Loader";
+import { Toaster } from "@/components/ui/sonner";
 
 
 const bricolage = Bricolage_Grotesque({
@@ -21,6 +23,8 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body className={`${bricolage.variable} antialiased`}  >
         {/* SVG Web Background - fixed, full width, hero height */}
+        < Toaster position="top-left" />
+
         <svg
           className="fixed inset-0 w-screen h-screen pointer-events-none z-0"
           width="100vw"
@@ -64,8 +68,11 @@ export default function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
+            <Loader />
             <UserProvider>
+              
               {children}
+              
             </UserProvider>
 
           

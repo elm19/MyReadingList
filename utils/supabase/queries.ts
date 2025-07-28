@@ -2,7 +2,7 @@ import { getUser } from "@/app/(auth)/actions";
 import { createClient } from "./server";
 import { List } from "@/lib/types";
 
-function slugify(text: string) {
+export function slugify(text: string) {
   return text
     .toLowerCase()
     .replace(/[^a-z0-9\s-]/g, "")
@@ -22,22 +22,6 @@ export default async function getBookLists() {
   return bookLists;
 }
 
-export const addBookListToDb = async () => {
-  const { supabase, user } = await getUser();
-  const { data, error } = await supabase
-    .from("book_lists")
-    .insert([
-      { name: "testing", description: "testing", creator_id: user?.id }, // Adjust keys as needed
-    ])
-    .select();
-  if (error) {
-    console.log({ "error message addBookListTODb": error.message });
-    return error;
-  }
-
-  return data;
-};
-
 export const addNewBookList = async (list: List) => {
   const { supabase, user } = await getUser();
 
@@ -55,7 +39,7 @@ export const addNewBookList = async (list: List) => {
   console.log(listResult);
   if (listError) {
     console.log(listError.message);
-    return { error: `failed to create a list, ${listError.message} ` };
+    return { error: listError, list_id: slugify(list.name) };
   }
 
   const novelsWithIds = list.books.map((book) => ({
@@ -69,7 +53,7 @@ export const addNewBookList = async (list: List) => {
   const { data: existingBooks } = await supabase
     .from("books")
     .select("id")
-    .in("id", ids); 
+    .in("id", ids);
 
   const existingIds = new Set(existingBooks?.map((b) => b.id));
   const newBooks = novelsWithIds.filter((book) => !existingIds.has(book.id));
@@ -80,7 +64,11 @@ export const addNewBookList = async (list: List) => {
       .select();
     if (bookError) {
       console.log(bookError.message);
-      return { error: `failed to add new books, ${bookError.message} ` };
+      // failled to add new books code: 410
+      return {
+        error: 410,
+        message: `failed to add new books, ${bookError.message} `,
+      };
     }
     const allBooks = [...(existingBooks ?? []), ...(newBooksAdded ?? [])];
     const { error } = await supabase.from("list_books").insert(
@@ -111,7 +99,26 @@ export const addNewBookList = async (list: List) => {
     }
   }
   return {
-    error:null,
-    success: "new list has been saved to the database"
-  }
+    error: null,
+    success: "new list has been saved to the database",
+    list_id: listResult.id,
+  };
+};
+
+export const getListData = async (id: string) => {
+  const { supabase, user } = await getUser();
+
+  const { data } = await supabase
+    .from("book_lists")
+    .select(`
+      *,
+      list_books(*, books(id, name, author, is_complete), profiles(username))
+      
+    `)
+    .eq("id", id)
+    .single()
+
+
+
+  return data;  
 };

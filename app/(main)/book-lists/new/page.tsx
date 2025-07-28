@@ -12,13 +12,19 @@ import { BookListPreview } from "./components/BookListPreview";
 import { BookListMetadata } from "./types";
 import { Switch } from "@/components/ui/switch";
 import { cn } from "@/lib/utils";
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
+import OverlayLoader from "@/components/OverlayLoader";
 
 export default function NewBookListPage() {
   const user = useUser();
-
+  const router = useRouter()
+  const [isLoading, setIsLoading] = useState(false);
+  const [isRedirect, setIsRedirect] = useState(false);
   const [isPreview, setIsPreview] = useState(false);
   const [showPreview, setShowPreview] = useState(false);
-  const [isFirstStep, setIsFirstStep] = useState(false);
+  const [isFirstStep, setIsFirstStep] = useState(false);;
+
   const [listDetails, setListDetails] = useState<BookListMetadata>({
     name: "this is a book list",
     description: "jjckdjckjkjkdxjk",
@@ -74,7 +80,7 @@ export default function NewBookListPage() {
     setIsPreview(listDetails.name.length < 10);
   }, [listDetails.name]);
   const HandleAddList = async () => {
-
+    setIsLoading(true)
     try {
       const response = await fetch('/api/book-list', {
         method: 'POST',
@@ -88,18 +94,44 @@ export default function NewBookListPage() {
       })
 
       const result = await response.json()
+        // console.log("there was an error")
 
       if (!response.ok) {
-        throw new Error(result.error || 'Failed to create book list')
+        console.log("there was an error")
+        console.log(result)
+        if(result && result.error.code === "P0001"){
+          console.log("000000")
+          console.log(result.error.message + "\n or make it private")
+          toast("Create new List failed",{
+            description: "A list with similar name exists, you can either change the name, or make it private",
+            action:{
+              label:"view the list",
+              onClick: () => router.push(`/book-lists/${result.list_id}`)
+            }
+          })
+        }
+        return new Error(result.error || 'Failed to create book list')
       }
+      if (result.error){
+        console.log("there was an error")
+        toast(result.error)
+      }      
+      setIsRedirect(true)
+      console.log(result)
+      router.push(`/book-lists/${result.list_id}`)
+
     } catch (err) {
       console.error('Error creating book list:', err)
       console.log(err)
-    } 
+    } finally {
+      setIsLoading(false)
+    }
 
   }
+
   return (
     <div className="relative min-h-screen lg:flex">
+      {isLoading && <OverlayLoader text={isRedirect ? "list has been created. Redirect!" : "we are adding your list to teh database"} />}
       {/* Form Section */}
       <div
         className={`relative bg-gradient-to-b from-primary-400/10 to-primary-600/10 dark:from-primary-900 dark:to-primary-950 lg:w-1/2 ${
@@ -115,7 +147,7 @@ export default function NewBookListPage() {
               Create a Book List
             </h1>
           </Link>
-          <div className="max-w-md">
+          <div className="max-w-md flex flex-col gap-2">
             <p className="font-medium text-gray-600 dark:text-gray-300">
               You will need to give your book list a name and optionally a
               description, and then you can start adding books to it.

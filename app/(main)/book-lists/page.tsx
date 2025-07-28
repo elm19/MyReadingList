@@ -1,4 +1,4 @@
-import getBookLists from "@/utils/supabase/queries";
+import getBookLists, { getListData } from "@/utils/supabase/queries";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -7,7 +7,7 @@ export const metadata: Metadata = {
 };
 
 export default async function BookListsPage() {
-  const data = await getBookLists();
+  // const data = await getBookLists();
   // const list = {
   //     name: "mmmm",
   //     description: 'hhhhhh',
@@ -26,13 +26,24 @@ export default async function BookListsPage() {
   //       type:'AC'
   //     }]
   // }
-  // const result = await addNewBookList(list);
-  // console.log(result)
+  const result = await getListData("mmmm");
+
+  console.log(result)
   return (
     <div>
       <h1>Book Lists</h1>
       <p>This is the book lists page.</p>
-      <div>{data && data.length>0 && data[0].name}</div>
+      {/* <div>{data && data.length>0 && data[0].name}</div> */}
+      {/* <div>
+        {result.name}
+      </div>
+      <ul>
+        {result.list_books.map(book => (
+          <div key={book.books.id} >
+            {book.books.name}
+          </div>
+        ))}
+      </ul> */}
     </div>
   );
 }

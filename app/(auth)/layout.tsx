@@ -3,7 +3,6 @@ import GridShape from "@/components/layout/GridShape";
 import ThemeSwitch from "@/components/MoonToggle";
 import Link from "next/link";
 import React from "react";
-import { Toaster } from "sonner";
 
 export default function AuthLayout({
   children,
@@ -12,7 +11,6 @@ export default function AuthLayout({
 }) {
   return (
     <div className="flex min-h-screen">
-      < Toaster position="top-left" />
 
       {/* Left side - decorative */}
       <div className="hidden lg:flex lg:w-1/2 relative bg-gradient-to-b from-primary-400/10 to-primary-600/10 dark:from-primary-900 dark:to-primary-950">
