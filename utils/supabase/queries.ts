@@ -58,7 +58,7 @@ export const addNewBookList = async (list: List) => {
     return { error: `failed to create a list, ${listError.message} ` };
   }
 
-  const novelsWithIds = list.novels.map((book) => ({
+  const novelsWithIds = list.books.map((book) => ({
     ...book,
     id: slugify(book.name),
   }));
@@ -82,29 +82,36 @@ export const addNewBookList = async (list: List) => {
       console.log(bookError.message);
       return { error: `failed to add new books, ${bookError.message} ` };
     }
+    const allBooks = [...(existingBooks ?? []), ...(newBooksAdded ?? [])];
+    const { error } = await supabase.from("list_books").insert(
+      allBooks?.map((book) => {
+        console.log({ book_id: book.id, book_list_id: listResult.id });
+        return {
+          book_id: book.id,
+          book_list_id: listResult.id,
+          added_by: user.id,
+        };
+      })
+    );
+    if (error) {
+      console.log(error.message);
+      return error;
+    }
   } else {
-      const { error } = await supabase.from("list_books").insert(existingBooks?.map(book =>{
-        book_id: book.id,
+    const { error } = await supabase.from("list_books").insert(
+      existingBooks?.map((id) => ({
+        book_id: id,
         book_list_id: listResult.id,
         added_by: user.id,
-      })))
+      }))
+    );
+    if (error) {
+      console.log(error.message);
+      return error;
+    }
   }
-
-  const allBooks = [...(existingBooks ?? []), ...(newBooksAdded ?? [])];
-
-  // const { error } = await supabase.from("list_books").insert(
-  //   allBooks?.map((book) => {
-  //     console.log({ book_id: book.id, book_list_id: listResult.id });
-  //     return {
-  //       book_id: book.id,
-  //       book_list_id: listResult.id,
-  //       added_by: user.id,
-  //     };
-  //   })
-  // );
-
-  if (error) {
-    console.log(error.message);
-    return error;
+  return {
+    error:null,
+    success: "new list has been saved to the database"
   }
 };

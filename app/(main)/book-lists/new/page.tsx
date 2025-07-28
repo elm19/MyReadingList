@@ -9,7 +9,7 @@ import { useUser } from "@/app/context/UserContext";
 import { BookListMetadataForm } from "./components/BookListMetadataForm";
 import { BookListEditor } from "./components/BookListEditor";
 import { BookListPreview } from "./components/BookListPreview";
-import { BookListMetadata, NewBookDetails } from "./types";
+import { BookListMetadata } from "./types";
 import { Switch } from "@/components/ui/switch";
 import { cn } from "@/lib/utils";
 
@@ -20,17 +20,19 @@ export default function NewBookListPage() {
   const [showPreview, setShowPreview] = useState(false);
   const [isFirstStep, setIsFirstStep] = useState(false);
   const [listDetails, setListDetails] = useState<BookListMetadata>({
-    name: "",
-    description: "",
+    name: "this is a book list",
+    description: "jjckdjckjkjkdxjk",
     isPrivate: false,
   });
 
 
   const [novels, setNovels] = useState<Novel[]>([]);
-  const [newBookDetails, setNewBookDetails] = useState<NewBookDetails>({
-    name: "",
-    author: "",
-    description: "",
+  const [newBookDetails, setNewBookDetails] = useState<Novel>({
+    id:"",
+    name: "this is a list",
+    author: "jjj",
+    description: "hhhhhhhhhhhhhhh",
+    type: "B"
   });
 
   const handleNextStep = () => {
@@ -41,12 +43,12 @@ export default function NewBookListPage() {
     if (newBookDetails.name.trim() !== "") {
       setNovels([
         {
-          id: Date.now().toString(), // Simple unique ID for now
           ...newBookDetails,
+          id: Date.now().toString(),
         },
         ...novels,
       ]);
-      setNewBookDetails({ name: "", author: "", description: "" });
+      setNewBookDetails({ id:"", name: "", author: "", description: "" , type:"B"});
     }
   };
 
@@ -65,7 +67,7 @@ export default function NewBookListPage() {
           : book
       )
     );
-    setNewBookDetails({ name: "", author: "", description: "" });
+    setNewBookDetails({ id:"", name: "", author: "", description: "", type:"B" });
   };
 
   useEffect(() => {
@@ -90,16 +92,9 @@ export default function NewBookListPage() {
       if (!response.ok) {
         throw new Error(result.error || 'Failed to create book list')
       }
-
-      console.log(
-
-        `Successfully created "${result.data.book_list.name}" with ${result.data.total_books} books!`
-      )
-      
-
     } catch (err) {
       console.error('Error creating book list:', err)
-      console.log(err.message)
+      console.log(err)
     } 
 
   }

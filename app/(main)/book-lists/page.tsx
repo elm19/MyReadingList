@@ -1,4 +1,4 @@
-import getBookLists, { addBookListToDb, addNewBookList } from "@/utils/supabase/queries";
+import getBookLists from "@/utils/supabase/queries";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -8,27 +8,31 @@ export const metadata: Metadata = {
 
 export default async function BookListsPage() {
   const data = await getBookLists();
-  const list = {
-      name: "sER",
-      description: 'hhhhhh',
-      isPrivate: false,
-      novels:[{
-        name:'aaa',
-        author: 'hhhhhhh',
-        type:"B"
-      }, {
-        name:'birth',
-        author: 'hhhhhhh',
-        type:'B'
-      }]
-  }
+  // const list = {
+  //     name: "mmmm",
+  //     description: 'hhhhhh',
+  //     isPrivate: false,
+  //     books:[{
+  //       id: '1',
+  //       name:'aaa',
+  //       author: 'hhhhhhh',
+  //       description: 'desc',
+  //       type:"B"
+  //     }, {
+  //       id: '2',
+  //       name:'birth',
+  //       author: 'hhhhhhh',
+  //       description: 'desc',
+  //       type:'AC'
+  //     }]
+  // }
   // const result = await addNewBookList(list);
   // console.log(result)
   return (
     <div>
       <h1>Book Lists</h1>
       <p>This is the book lists page.</p>
-      <div>{data && data[0].name}</div>
+      <div>{data && data.length>0 && data[0].name}</div>
     </div>
   );
 }

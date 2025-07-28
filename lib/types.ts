@@ -7,10 +7,10 @@ export interface Book {
 
 
 export interface Novel {
-  id?:string
+  id:string
   name: string;
-  author?: string;
-  description?: string;
+  author: string;
+  description: string;
   type: 'B'| 'AC' | 'EN'
 }
 
@@ -20,5 +20,5 @@ export interface List {
   description?:string;
   isPrivate?: boolean
   updated_at?: string;
-  novels: Novel[]
+  books: Novel[]
 }

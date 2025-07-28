@@ -6,12 +6,21 @@ import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
 
+import { BookListMetadata } from "../types";
+
+interface BookListMetadataFormProps {
+  listDetails: BookListMetadata;
+  setListDetails: (listDetails: BookListMetadata) => void;
+  handleNextStep: () => void;
+  isPreview: boolean;
+}
+
 export const BookListMetadataForm = ({
   listDetails,
   setListDetails,
   handleNextStep,
   isPreview,
-}) => (
+}: BookListMetadataFormProps) => (
   <div className="grid gap-4">
     <div className="grid gap-2">
       <Label htmlFor="name">List Name</Label>

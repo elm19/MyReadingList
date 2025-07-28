@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Edit2Icon, Trash2 } from "lucide-react";
 import { AddNewNovel } from "@/components/AddNewNovel";
 import { Alert } from "@/components/ui/alert";
-import { BookListMetadata, NewBookDetails } from "../types";
+import { BookListMetadata } from "../types";
 import { Novel } from "@/lib/types";
 
 interface BookListEditorProps {
@@ -14,8 +14,8 @@ interface BookListEditorProps {
   handleDeleteBook: (arg: string) => void;
   handleEditBook: (arg: string) => void;
   handleAddBook: () => void;
-  newBookDetails: NewBookDetails;
-  setNewBookDetails: (arg: NewBookDetails) => void;
+  newBookDetails: Novel;
+  setNewBookDetails: (arg: Novel) => void;
   HandleAddList: () => void
 }
 
@@ -63,7 +63,7 @@ export const BookListEditor = ({
             newBookDescription={newBookDetails.description}
           />
         </h3>
-        <Button variant={"secondary"} disabled={novels.length<=3} onClick={HandleAddList}>Finish Edit</Button>
+        <Button variant={"secondary"} disabled={novels.length<=1} onClick={HandleAddList}>Finish Edit</Button>
       </div>
 
       {novels.length === 0 ? (
