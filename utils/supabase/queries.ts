@@ -106,9 +106,9 @@ export const addNewBookList = async (list: List) => {
 };
 
 export const getListData = async (id: string) => {
-  const { supabase, user } = await getUser();
+  const { supabase } = await getUser();
 
-  const { data } = await supabase
+  const { data, error } = await supabase
     .from("book_lists")
     .select(`
       *,
@@ -117,6 +117,7 @@ export const getListData = async (id: string) => {
     `)
     .eq("id", id)
     .single()
+    console.log(error)
 
 
 

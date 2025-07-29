@@ -1,4 +1,4 @@
-import getBookLists, { getListData } from "@/utils/supabase/queries";
+import { getListData } from "@/utils/supabase/queries";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
