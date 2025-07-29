@@ -25,7 +25,13 @@ export default function RootLayout({
         {/* SVG Web Background - fixed, full width, hero height */}
         < Toaster position="top-left" />
 
-        <svg
+         <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+                    <svg
           className="fixed inset-0 w-screen h-screen pointer-events-none z-0"
           width="100vw"
           height="100vh"
@@ -62,12 +68,6 @@ export default function RootLayout({
             />
           ))}
         </svg>
-         <ThemeProvider
-            attribute="class"
-            defaultTheme="system"
-            enableSystem
-            disableTransitionOnChange
-          >
             <Loader />
             <UserProvider>
               

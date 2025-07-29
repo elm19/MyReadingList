@@ -9,7 +9,7 @@ export default function BooksPage() {
   return (
     <div>
       <h1>Books</h1>
-      <p>This is the books page.</p>
-    </div>
+      <p>This is the book djflkd s page.</p>
+    </div> 
   );
 }
