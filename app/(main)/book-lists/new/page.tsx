@@ -141,8 +141,8 @@ export default function NewBookListPage() {
         <div className="absolute inset-0">
           <GridShape />
         </div>
-        <div className="relative z-10 flex flex-col w-full max-w-4xl p-12">
-          <Link href="/" className="mt-10 transition-transform hover:scale-105">
+        <div className="relative min-h-svh z-10 flex flex-col w-full max-w-4xl p-2 md:p-12 ">
+          <Link href="/" className="mt-16 transition-transform hover:scale-105">
             <h1 className="text-4xl font-bold bg-gradient-to-r from-primary-400 to-primary-600 bg-clip-text text-transparent">
               Create a Book List
             </h1>
@@ -153,7 +153,7 @@ export default function NewBookListPage() {
               description, and then you can start adding books to it.
             </p>
           </div>
-          <div className="mt-12 p-6 bg-white/10 dark:bg-gray-800/30 rounded-lg backdrop-blur-sm">
+          <div className="mt-12 p-4 md:p-6 rounded-lg backdrop-blur-lg">
             {isFirstStep ? (
               <BookListMetadataForm
                 listDetails={listDetails}

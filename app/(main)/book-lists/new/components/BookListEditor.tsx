@@ -31,21 +31,21 @@ export const BookListEditor = ({
   HandleAddList,
 }: BookListEditorProps) => (
   <div className="grid gap-4">
-    <div className="capitalize flex items-center">
-      <span className="text-xl font-bold">Title: {listDetails.name}</span>
+    <div className="capitalize  text-left flex gap-2">
+      <span className="text-xl font-bold">{listDetails.name}</span>
       <Button
         variant="link"
         size={"sm"}
-        className="ml-2"
+        className=""
         onClick={() => setIsFirstStep(true)}
       >
-        Edit title/description <Edit2Icon className="w-4 h-4 ml-1" />
+        <Edit2Icon className="w-6 h-6" />
       </Button>
     </div>
 
     <div className="mt-6">
-      <div className="flex gap-20 items-center mb-10">
-        <h3 className="text-lg flex justify-start gap-4 items-center text-left font-semibold mb-2">
+      <div className="flex justify-between gap-2 flex-col md:flex-row  mb-10">
+        <h3 className="text-lg flex justify-between md:justify-start gap-4 items-center text-left font-semibold mb-2">
           <span>Books in this List</span>
           <AddNewNovel
             setNewBookName={(name) =>
@@ -63,7 +63,7 @@ export const BookListEditor = ({
             newBookDescription={newBookDetails.description}
           />
         </h3>
-        <Button variant={"secondary"} disabled={novels.length<=1} onClick={HandleAddList}>Finish Edit</Button>
+        <Button size={"lg"} disabled={novels.length<=1} onClick={HandleAddList}>Finish Edit</Button>
       </div>
 
       {novels.length === 0 ? (

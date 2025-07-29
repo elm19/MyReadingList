@@ -25,7 +25,7 @@ const Header = async () => {
         ) : (
           <Link
             href="/sign-in"
-            className={buttonVariants({ variant: "ghost", size: "icon" })}
+            className={buttonVariants({ variant: "ghost" })}
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -41,12 +41,17 @@ const Header = async () => {
               <polyline points="10 17 15 12 10 7" />
               <line x1="15" y1="12" x2="3" y2="12" />
             </svg>
+            <div  className="hidden md:block">Sign In</div>
           </Link>
         )}
         <SearchInput />
         <ThemeSwitch />
         <MobileNav />
       </div>
+      {/* <div>
+
+        testing the water ?
+      </div> */}
     </header>
   );
 };

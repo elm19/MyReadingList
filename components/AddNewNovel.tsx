@@ -51,9 +51,11 @@ export function AddNewNovel({
         <DialogTrigger asChild>
           <Button variant="outline" size={"sm"} onClick={() => {
             if(type === "edit" && book){
-              setNewBookName(book.name)
+              console.log("eeee",book?.name)
+              setNewBookName(book.name || "")
               setNewBookAuthor(book.author || "")
               setNewBookDescription(book.description || "")
+              console.log("rrrrrrrr",newBookDescription)
             }
           }}>
             {type === "new" ? (
@@ -63,7 +65,7 @@ export function AddNewNovel({
             )}
           </Button>
         </DialogTrigger>
-        <DialogContent className="sm:max-w-[625px]">
+        <DialogContent className="w-full">
           <DialogHeader>
             <DialogTitle>Novel info</DialogTitle>
             <DialogDescription>
@@ -75,9 +77,10 @@ export function AddNewNovel({
             <div className="grid gap-3">
               <Label htmlFor="newBookName">Book Title</Label>
               <Input
+                key={book?.id || 'new-book-name'}
                 id="newBookName"
                 placeholder="The Hobbit"
-                value={newBookName}
+                defaultValue={newBookName}
                 onChange={(e) => setNewBookName(e.target.value)}
               />
             </div>
