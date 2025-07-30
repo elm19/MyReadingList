@@ -117,12 +117,12 @@ export function AuthForm({
             <div className="flex items-center">
               <Label htmlFor="password">Password</Label>
               {!isSignUp && (
-                <a
+                <Link
                   href="#"
                   className="ml-auto text-sm text-muted-foreground hover:underline underline-offset-4"
                 >
                   Forgot your password?
-                </a>
+                </Link>
               )}
             </div>
             <Input 
