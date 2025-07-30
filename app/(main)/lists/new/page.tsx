@@ -106,7 +106,7 @@ export default function NewBookListPage() {
             description: "A list with similar name exists, you can either change the name, or make it private",
             action:{
               label:"view the list",
-              onClick: () => router.push(`/book-lists/${result.list_id}`)
+              onClick: () => router.push(`/lists/${result.list_id}`)
             }
           })
         }
@@ -118,7 +118,7 @@ export default function NewBookListPage() {
       }      
       setIsRedirect(true)
       console.log(result)
-      router.push(`/book-lists/${result.list_id}`)
+      router.push(`/lists/${result.list_id}`)
 
     } catch (err) {
       console.error('Error creating book list:', err)

@@ -11,7 +11,43 @@ export default function AuthLayout({
 }) {
   return (
     <div className="flex min-h-screen">
-
+          <svg
+            className="fixed inset-0 w-screen h-screen pointer-events-none z-10000"
+            width="100vw"
+            height="100vh"
+            viewBox="0 0 1920 1080"
+            fill="none"
+            preserveAspectRatio="xMidYMid slice"
+            xmlns="http://www.w3.org/2000/svg"
+            aria-hidden="true"
+          >
+            {/* Vertical lines */}
+            {Array.from({ length: 33 }).map((_, i) => (
+              <line
+                key={`v-${i}`}
+                x1={i * 70}
+                y1={0}
+                x2={i * 50}
+                y2={1080}
+                stroke="#818cf8"
+                strokeWidth="1"
+                opacity="0.08"
+              />
+            ))}
+            {/* Horizontal lines */}
+            {Array.from({ length: 13 }).map((_, i) => (
+              <line
+                key={`h-${i}`}
+                x1={0}
+                y1={i * 70}
+                x2={1920}
+                y2={i * 70}
+                stroke="#818cf8"
+                strokeWidth="1"
+                opacity="0.08"
+              />
+            ))}
+          </svg>
       {/* Left side - decorative */}
       <div className="hidden lg:flex lg:w-1/2 relative bg-gradient-to-b from-primary-400/10 to-primary-600/10 dark:from-primary-900 dark:to-primary-950">
         <div className="absolute inset-0">

@@ -19,7 +19,7 @@ const HeroSection = () => {
           Create your own, follow your taste.
         </p>
         <Link
-          href="/book-lists/all"
+          href="/lists/all"
           className="mt-8 inline-block rounded-lg bg-primary-500 px-8 py-3 text-lg font-semibold text-white shadow-lg hover:bg-primary-600 focus:outline-none focus:ring-2 focus:ring-primary-400 focus:ring-offset-2 transition"
         >
           See Popular Lists

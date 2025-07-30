@@ -14,12 +14,28 @@ export default async function getBookLists() {
 
   const { data: bookLists, error } = await supabase
     .from("book_lists")
-    .select("*");
-
+    .select("*")
+    // .eq("is_public", true);
+  console.log(error)
   if (error) {
     throw new Error(error.message);
   }
-  return bookLists;
+
+  const listsWithBookCounts = await Promise.all(
+    bookLists.map(async (list) => {
+      const { count } = await supabase
+        .from("list_books")
+        .select("*", { count: "exact", head: true })
+        .eq("book_list_id", list.id);
+
+      return {
+        ...list,
+        book_count: count || 0,
+      };
+    })
+  );
+
+  return listsWithBookCounts;
 }
 
 export const addNewBookList = async (list: List) => {
@@ -56,9 +72,12 @@ export const addNewBookList = async (list: List) => {
     .in("id", ids);
 
   const existingIds = new Set(existingBooks?.map((b) => b.id));
-  const newBooks = novelsWithIds.filter((book) => !existingIds.has(book.id));
+  const newBooks = novelsWithIds.filter((book) => !existingIds.has(book.id)).map((book) => ({
+    ...book,
+    description: "",
+  }));
   if (newBooks.length > 0) {
-    const { data: newBooksAdded, error: bookError } = await supabase
+    const { error: bookError } = await supabase
       .from("books")
       .insert(newBooks)
       .select();
@@ -70,14 +89,15 @@ export const addNewBookList = async (list: List) => {
         message: `failed to add new books, ${bookError.message} `,
       };
     }
-    const allBooks = [...(existingBooks ?? []), ...(newBooksAdded ?? [])];
-    const { error } = await supabase.from("list_books").insert(
-      allBooks?.map((book) => {
+    // const allBooks = [...(novelsWithIds ?? []), ...(newBooksAdded ?? [])];
+    const { error } = await supabase.from("list_items").insert(
+      novelsWithIds?.map((book) => {
         console.log({ book_id: book.id, book_list_id: listResult.id });
         return {
           book_id: book.id,
           book_list_id: listResult.id,
           added_by: user.id,
+          description: book.description,
         };
       })
     );
@@ -86,11 +106,13 @@ export const addNewBookList = async (list: List) => {
       return error;
     }
   } else {
+    console.log("")
     const { error } = await supabase.from("list_books").insert(
-      existingBooks?.map((id) => ({
+      novelsWithIds?.map(({id, description}) => ({
         book_id: id,
         book_list_id: listResult.id,
         added_by: user.id,
+        description: description,
       }))
     );
     if (error) {
@@ -105,6 +127,8 @@ export const addNewBookList = async (list: List) => {
   };
 };
 
+
+
 export const getListData = async (id: string) => {
   const { supabase } = await getUser();
 
@@ -112,7 +136,7 @@ export const getListData = async (id: string) => {
     .from("book_lists")
     .select(`
       *,
-      list_books(*, books(id, name, author, is_complete), profiles(username))
+      list_items(*, books(id, name, author, is_complete), profiles(username))
       
     `)
     .eq("id", id)
@@ -123,3 +147,25 @@ export const getListData = async (id: string) => {
 
   return data;  
 };
+
+
+
+export const isItTracked = async (id: string) => {
+  const { user, supabase } = await getUser();
+  if (!user) {
+    // console.log("no user")
+    return {error: "you need to log in"};
+  }
+  const {  error } = await supabase
+    .from("list_followers")
+    .select("user_id") // or "*", or just a lightweight field
+    .match({ user_id: user.id, list_id: id })
+    .single()
+  if (error) {
+    console.log(error)
+
+    return { isFollowing: false };
+  } 
+  return { isFollowing: true };
+};
+
