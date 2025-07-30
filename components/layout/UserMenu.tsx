@@ -27,7 +27,8 @@ const UserMenu = ({ user }: UserMenuProps) => {
         >
           <Button variant={"ghost"} size={"icon"} asChild>
           <Avatar>
-            <AvatarImage src={user.user_metadata.avatar_url} />
+            
+            <AvatarImage alt={`${user.user_metadata.username} avatar`} src={user.user_metadata.avatar_url} />
             <AvatarFallback>{userInitial}</AvatarFallback>
           </Avatar>
           </Button>

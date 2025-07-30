@@ -75,6 +75,7 @@ export default async function BookListPage({ params }: PageProps) {
 
   try {
     const list = await getBookListData(id);
+    
     console.log(list)
     // Format the last updated date for display
     const lastUpdatedDate = new Date(list.updated_at).toLocaleDateString(
@@ -101,8 +102,8 @@ export default async function BookListPage({ params }: PageProps) {
       <div className="w-full pt-10 min-h-3xl max-w-4xl mx-auto px-4 flex flex-col rounded-lg">
         {/* Header Section */}
         <MainBreadcrumb page="lists" />
-        <div className="flex capitalize flex-col gap-4 items-start mb-6">
-          <h1 className="text-4xl font-bold text-gray-900 dark:text-gray-100 mb-3">
+        <div className="flex flex-col gap-4 items-start mb-6">
+          <h1 className="text-4xl capitalize font-bold text-gray-900 dark:text-gray-100 mb-3">
             {list.name}
           </h1>
           <div className="flex md:items-center gap-4 justify-between w-full flex-col md:flex-row text-sm text-gray-500 dark:text-gray-400">
