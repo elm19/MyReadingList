@@ -31,7 +31,7 @@ const SmallSearchInput = ({
 
                   router.push(newUrl, { scroll: false });
               } else {
-                  if(pathname === '/lists') {
+                  if(pathname === '/lists' || pathname === '/books') {
                       const newUrl = removeKeysFromUrlQuery({
                           params: searchParams.toString(),
                           keysToRemove: [params],

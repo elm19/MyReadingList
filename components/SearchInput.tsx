@@ -46,7 +46,7 @@ export const SearchInput = () => {
                   className="transition-all duration-300 focus:ring-2 focus:ring-primary/50"
                 />
 
-                <Button onClick={redirectToSearchPage} variant={"default"}>
+                <Button onClick={redirectToSearchPage} aria-label="search our entire content"   variant={"default"}>
                   <Search className="h-4 w-4" />
                 </Button>
               </div>

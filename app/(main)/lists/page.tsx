@@ -11,6 +11,8 @@ export const metadata: Metadata = {
   description: "Explore public curated book lists, discover new reads, and share your own collections on OurReadingList.",
 };
 
+
+
 export default async function BookListsPage({
   searchParams,
 }: {
@@ -33,8 +35,8 @@ export default async function BookListsPage({
           <div key={list.id}>
             <CardList
               id={list.id}
-              updateAt={list.updated_at}
-              updatedBy={list.last_item?.profiles?.username || ""}
+              date={list.updated_at}
+              user={list.last_item?.profiles?.username || ""}
               name={list.name}
               book_count={list.item_count}
               follower_count={list.follower_count}

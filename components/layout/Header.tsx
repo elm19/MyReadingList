@@ -48,10 +48,6 @@ const Header = async () => {
         <ThemeSwitch />
         <MobileNav />
       </div>
-      {/* <div>
-
-        testing the water ?
-      </div> */}
     </header>
   );
 };

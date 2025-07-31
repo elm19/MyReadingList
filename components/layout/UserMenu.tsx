@@ -9,7 +9,6 @@ import {
 } from "@/components/ui/menubar";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import Link from "next/link";
-import { Button } from "@/components/ui/button";
 import SignOut from "../SignOut";
 
 interface UserMenuProps {
@@ -25,13 +24,11 @@ const UserMenu = ({ user }: UserMenuProps) => {
         <MenubarTrigger
         data-slot="menubar-trigger"
         >
-          <Button variant={"ghost"} size={"icon"} asChild>
           <Avatar>
             
             <AvatarImage alt={`${user.user_metadata.username} avatar`} src={user.user_metadata.avatar_url} />
             <AvatarFallback>{userInitial}</AvatarFallback>
           </Avatar>
-          </Button>
         </MenubarTrigger>
         <MenubarContent>
           <MenubarItem>

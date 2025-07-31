@@ -7,11 +7,11 @@ import {
 import Link from "next/link";
 import SmallSearchInput from "./SmallSearchInput";
 
-const SubHeaderSeaction = () => {
+const SubHeaderSeaction = ({type = "list"}: {type?: "list" | "book"} ) => {
   return (
     <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 mb-8">
       <div className="flex justify-between sm:flex-row items-center w-full sm:items-center gap-3 sm:gap-4">
-        <h1 className="text-2xl sm:text-3xl font-bold">Our Lists</h1>
+        <h1 className="text-2xl sm:text-3xl font-bold">{type === "list" ? "Our Lists" : "Books" }</h1>
         <div className="flex items-center gap-2">
           <span className="text-sm hidden md:block text-muted-foreground whitespace-nowrap">
             Sort by:

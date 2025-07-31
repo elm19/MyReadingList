@@ -27,7 +27,7 @@ interface PageProps {
 async function getBookListData(id: string) {
   try {
     const data = await getListData(id);
-    
+
     return data;
   } catch (error) {
     console.error("Error getting book list data:", error);
@@ -47,7 +47,7 @@ export async function generateMetadata({
   try {
     const list = await getBookListData(id);
     return {
-      title: `${list.name} - Book List | OurReadingList`,
+      title: `${list.name} | OurReadingList`,
       description:
         list.description ||
         `Discover amazing books in the ${list.name} collection.`,
@@ -61,23 +61,19 @@ export async function generateMetadata({
       .join(" ");
 
     return {
-      title: `${fallbackName} - Book List | OurReadingList`,
+      title: `${fallbackName} | OurReadingList`,
       description: `Details of the book list: ${fallbackName}.`,
     };
   }
 }
 
-
-
-
 export default async function BookListPage({ params }: PageProps) {
   const { id } = await params;
 
-
   try {
     const list = await getBookListData(id);
-    
-    console.log(list)
+
+    console.log(list);
     // Format the last updated date for display
     const lastUpdatedDate = new Date(list.updated_at).toLocaleDateString(
       "en-US",
@@ -95,9 +91,8 @@ export default async function BookListPage({ params }: PageProps) {
       ),
     ];
     console.log(contributors);
-    const {isFollowing} = await isItTracked(list.id)
-    console.log(isFollowing)
-    
+    const { isFollowing } = await isItTracked(list.id);
+    console.log(isFollowing);
 
     return (
       <div className="w-full pt-10 min-h-3xl max-w-4xl mx-auto px-4 flex flex-col rounded-lg">
@@ -109,9 +104,7 @@ export default async function BookListPage({ params }: PageProps) {
           </h1>
           <div className="flex md:items-center gap-4 justify-between w-full flex-col md:flex-row text-sm text-gray-500 dark:text-gray-400">
             <div className="flex flex-col gap-2 ">
-              <div>
-                Last updated {lastUpdatedDate}
-              </div>
+              <div>Last updated {lastUpdatedDate}</div>
               <div className="flex gap-2 items-center">
                 <span>Built by </span>
 
@@ -121,9 +114,12 @@ export default async function BookListPage({ params }: PageProps) {
                   </Badge>
                 ))}
               </div>
-
             </div>
-            <FollowListButton FollowerCount={list.follower_count} isFollowing={isFollowing}  listId={list.id} />
+            <FollowListButton
+              FollowerCount={list.follower_count}
+              isFollowing={isFollowing}
+              listId={list.id}
+            />
           </div>
         </div>
 
@@ -144,26 +140,31 @@ export default async function BookListPage({ params }: PageProps) {
             </p>
           ) : (
             <ul className="space-y-8">
-              {list.list_items.map((elem: { description:string, books: Novel }, index:number) => (
-                <li key={elem.books.id}>
-                  <div className="flex items-center justify-between mb-2">
-                    <h3 className="text-xl capitalize font-semibold text-gray-900 dark:text-gray-100 flex items-center">
-                      {index + 1}. {elem.books.name}{" "}
-                      {elem.books.author ? `By ${elem.books.author}` : ""}
-                      {!elem.books.is_complete && (
-                        <ExplainHoverCard />
-                      )}
-                    </h3>
-                  </div>
+              {list.list_items.map(
+                (
+                  elem: { description: string; books: Novel },
+                  index: number
+                ) => (
+                  <li key={elem.books.id}>
+                    <div className="flex items-center justify-between mb-2">
+                      <h3 className="text-xl capitalize font-semibold text-gray-900 dark:text-gray-100 flex items-center">
+                        <Link href={`/books/${elem.books.id}`}>
+                          {index + 1}. {elem.books.name}{" "}
+                          {elem.books.author ? `By ${elem.books.author}` : ""}
+                          </Link>
+                          {!elem.books.is_complete && <ExplainHoverCard />}
+                      </h3>
+                    </div>
 
-                  <div className="pl-6 border-l-2 border-gray-200 dark:border-gray-700">
-                    <p className="text-gray-700 dark:text-gray-300 whitespace-pre-wrap">
-                      {elem.description || "No description available."}
-                    </p>
-                    <BookListItemMenu />
-                  </div>
-                </li>
-              ))}
+                    <div className="pl-6 border-l-2 border-gray-200 dark:border-gray-700">
+                      <p className="text-gray-700 dark:text-gray-300 whitespace-pre-wrap">
+                        {elem.description || "No description available."}
+                      </p>
+                      <BookListItemMenu />
+                    </div>
+                  </li>
+                )
+              )}
             </ul>
           )}
         </div>

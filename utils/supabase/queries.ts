@@ -182,3 +182,35 @@ export const isItTracked = async (id: string) => {
   }
   return { isFollowing: true };
 };
+
+
+export async function getBooks(
+  page: number = 1,
+  sort: number = 0,
+  search: string = ""
+) {
+  // Number of items per page
+  const from = (page - 1) * perPage; // Calculate the offset for
+  const to = from + perPage - 1;
+  const sortBy = sort === 1 ? "list_count" : "added_at";
+
+  const supabase = await createClient();
+  let query = supabase
+    .from("books")
+    .select(
+      "id, name, author, description, is_complete, added_at, list_count, source_id",
+      { count: "exact" }
+    )
+
+  if (search && search.length >= 7) {
+    query = query.or(`name.ilike.%${search}%`);
+  }
+
+  query = query.order(sortBy, { ascending: false }).range(from, to);
+  const { data: books, error, count } = await query;
+  console.log(books);
+  if (error) {
+    throw new Error(error.message);
+  }
+  return { books: books, count: count };
+}
