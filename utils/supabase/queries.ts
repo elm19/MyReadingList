@@ -2,6 +2,9 @@ import { getUser } from "@/app/(auth)/actions";
 import { createClient } from "./server";
 import { List } from "@/lib/types";
 
+
+const perPage = 10; 
+
 export function slugify(text: string) {
   return text
     .toLowerCase()
@@ -26,10 +29,11 @@ interface BookList {
   last_item: LastItemData; // last_item is now an OBJECT, not an array
 }
 
-export default async function getBookLists(page: number = 1) {
-  const perPage = 2; // Number of items per page
+export default async function getBookLists(page: number = 1, sort: number = 0) {
+  // Number of items per page
   const from = (page - 1) * perPage; // Calculate the offset for
   const to = from + perPage - 1;
+  const sortBy = sort === 1 ? "follower_count" : "updated_at";
 
   const supabase = await createClient();
 
@@ -40,7 +44,7 @@ export default async function getBookLists(page: number = 1) {
       { count: "exact" }
     )
     .eq("is_private", false)
-    .order("updated_at", { ascending: false })
+    .order(sortBy, { ascending: false })
     .range(from, to);
 
   console.log(error);
