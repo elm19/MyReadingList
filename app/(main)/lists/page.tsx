@@ -19,15 +19,13 @@ export default async function BookListsPage({
   const params = await searchParams;
   const page = params.page ? Number(params.page) : 1;
   const sort = params.sort ==="most-popular" ?  1 : 0;
-
-  const { bookLists, count } = await getBookLists(page, sort);
+  const search = params.search
+  
+  const { bookLists, count } = await getBookLists(page, sort, search);
 
   return (
-    <div className="w-full min-h-screen max-w-4xl mx-auto px-4 py-8">
-
-
+    <div className="w-full mb-10 min-h-screen max-w-4xl mx-auto px-4 py-8">
       <SubHeaderSeaction />
-
 
       {/* Single Column Layout with Dividers */}
       <div className="space-y-0">
@@ -52,7 +50,7 @@ export default async function BookListsPage({
       {/* Empty State */}
       {bookLists.length === 0 && <NoBookList />}
 
-      <OurPagination page={page} totalCount={count || 1} pageSize={10} />
+      {count && count>10 && <OurPagination page={page} totalCount={count} pageSize={10} />}
     </div>
   );
 }

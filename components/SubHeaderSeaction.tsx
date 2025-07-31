@@ -5,15 +5,13 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import Link from "next/link";
-
+import SmallSearchInput from "./SmallSearchInput";
 
 const SubHeaderSeaction = () => {
   return (
     <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 mb-8">
-      <h1 className="text-2xl sm:text-3xl font-bold">Our Lists</h1>
-      <div className="flex sm:flex-row items-center w-full md:w-fit sm:items-center gap-3 sm:gap-4">
-        {/* Search */}
-
+      <div className="flex justify-between sm:flex-row items-center w-full sm:items-center gap-3 sm:gap-4">
+        <h1 className="text-2xl sm:text-3xl font-bold">Our Lists</h1>
         <div className="flex items-center gap-2">
           <span className="text-sm hidden md:block text-muted-foreground whitespace-nowrap">
             Sort by:
@@ -49,37 +47,15 @@ const SubHeaderSeaction = () => {
             </DropdownMenuContent>
           </DropdownMenu>
         </div>
+      </div>
+      <SmallSearchInput params="search"/>
 
-        <div className="relative">
-          <svg
-            className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-            />
-          </svg>
-          <input
-            type="text"
-            placeholder="Search lists..."
-            className="pl-10 pr-4 py-2 border bg-background text-foreground placeholder:text-muted-foreground rounded-lg text-sm hover:border-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring w-full sm:w-64"
-          />
-        </div>
-
-        {/* <Link
+      {/* <Link
           href="/lists/my-lists"
           className="text-primary hover:text-primary/80 font-medium transition-colors whitespace-nowrap"
         >
           My Lists
         </Link> */}
-
-        
-      </div>
     </div>
   );
 };

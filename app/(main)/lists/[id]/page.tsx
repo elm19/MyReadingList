@@ -27,6 +27,7 @@ interface PageProps {
 async function getBookListData(id: string) {
   try {
     const data = await getListData(id);
+    
     return data;
   } catch (error) {
     console.error("Error getting book list data:", error);
@@ -122,7 +123,7 @@ export default async function BookListPage({ params }: PageProps) {
               </div>
 
             </div>
-            <FollowListButton isFollowing={isFollowing}  listId={list.id} />
+            <FollowListButton FollowerCount={list.follower_count} isFollowing={isFollowing}  listId={list.id} />
           </div>
         </div>
 

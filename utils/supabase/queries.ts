@@ -2,8 +2,7 @@ import { getUser } from "@/app/(auth)/actions";
 import { createClient } from "./server";
 import { List } from "@/lib/types";
 
-
-const perPage = 10; 
+const perPage = 10;
 
 export function slugify(text: string) {
   return text
@@ -29,32 +28,35 @@ interface BookList {
   last_item: LastItemData; // last_item is now an OBJECT, not an array
 }
 
-export default async function getBookLists(page: number = 1, sort: number = 0) {
+export default async function getBookLists(page: number = 1, sort: number = 0, search: string = "") {
   // Number of items per page
   const from = (page - 1) * perPage; // Calculate the offset for
   const to = from + perPage - 1;
   const sortBy = sort === 1 ? "follower_count" : "updated_at";
 
   const supabase = await createClient();
-
-  const { data: bookLists, error , count} = await supabase
+  let query = supabase
     .from("book_lists")
     .select(
       "id, name, updated_at, follower_count, item_count, last_item(profiles(username))",
       { count: "exact" }
     )
-    .eq("is_private", false)
-    .order(sortBy, { ascending: false })
-    .range(from, to);
+    .eq("is_private", false);
 
-  console.log(error);
+  if (search && search.length >= 7) {
+    query = query.or(`name.ilike.%${search}%`);
+  }
+
+  query = query.order(sortBy, { ascending: false }).range(from, to);
+
+  const { data: bookLists, error, count } = await query;
+  console.log(bookLists)
   if (error) {
     throw new Error(error.message);
   }
-  // for some reason typescript was complaining about the type of bookLists
-  // so we need to cast it to BookList[]
+
   const typedBookLists: BookList[] = bookLists as unknown as BookList[];
-  return {bookLists:typedBookLists, count:count};;
+  return { bookLists: typedBookLists, count: count };
 }
 
 export const addNewBookList = async (list: List) => {
@@ -170,14 +172,12 @@ export const isItTracked = async (id: string) => {
     // console.log("no user")
     return { error: "you need to log in" };
   }
-  const { error } = await supabase
+  const { error, data } = await supabase
     .from("list_followers")
-    .select("user_id") // or "*", or just a lightweight field
+    .select("user_id")
     .match({ user_id: user.id, list_id: id })
     .single();
-  if (error) {
-    console.log(error);
-
+  if (error || !data) {
     return { isFollowing: false };
   }
   return { isFollowing: true };

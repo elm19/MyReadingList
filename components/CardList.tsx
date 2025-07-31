@@ -32,20 +32,29 @@ const CardList = ({
               </h2>
             </Link>
 
-            <div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground">
-              <div className="flex items-center gap-1">
-                <span>Last updated by</span>
-                <Link
-                  href="/profile/john_doe"
-                  className="text-primary hover:text-primary/80 font-medium hover:underline"
-                  onClick={(e) => e.stopPropagation()}
-                >
-                  @{updatedBy}
-                </Link>
-                <span className="text-muted-foreground/60">•</span>
-                <span>
-                  {formatDistanceToNow(new Date(updateAt || "0"), { addSuffix: true })}
+            <div className="flex flex-wrap flex-col gap-4 ml-2 text-sm text-muted-foreground">
+              <div className="flex md:flex-row flex-col gap-2 md:gap-4 items-start md:items-center">
+                <div className="flex items-center gap-1">
+                  <span>Last updated by</span>
+                  <Link
+                    href="/profile/john_doe"
+                    className="text-primary hover:text-primary/80 font-medium hover:underline"
+                    onClick={(e) => e.stopPropagation()}
+                  >
+                    @{updatedBy}
+                  </Link>
+                </div>
+                <span className="text-muted-foreground/60 hidden md:inline">
+                  •
                 </span>
+
+                <div>
+                  <span>
+                    {formatDistanceToNow(new Date(updateAt || "0"), {
+                      addSuffix: true,
+                    })}
+                  </span>
+                </div>
               </div>
 
               <div className="flex items-center gap-4">
