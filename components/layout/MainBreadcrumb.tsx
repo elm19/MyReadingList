@@ -8,7 +8,7 @@ import {
 import Link from "next/link";
 
 interface MainBreadcrumbProp {
-  page: "book" | "profile" | "lists";
+  page: "books" | "profile" | "lists";
 }
 
 const MainBreadcrumb = ({ page }: MainBreadcrumbProp) => {

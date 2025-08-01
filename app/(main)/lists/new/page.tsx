@@ -18,12 +18,12 @@ import OverlayLoader from "@/components/OverlayLoader";
 
 export default function NewBookListPage() {
   const user = useUser();
-  const router = useRouter()
+  const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
   const [isRedirect, setIsRedirect] = useState(false);
   const [isPreview, setIsPreview] = useState(false);
   const [showPreview, setShowPreview] = useState(false);
-  const [isFirstStep, setIsFirstStep] = useState(false);;
+  const [isFirstStep, setIsFirstStep] = useState(false);
 
   const [listDetails, setListDetails] = useState<BookListMetadata>({
     name: "this is a book list",
@@ -31,14 +31,12 @@ export default function NewBookListPage() {
     isPrivate: false,
   });
 
-
   const [novels, setNovels] = useState<Novel[]>([]);
   const [newBookDetails, setNewBookDetails] = useState<Novel>({
-    id:"",
+    id: "",
     name: "this is a list",
     author: "jjj",
     description: "hhhhhhhhhhhhhhh",
-    type: "B"
   });
 
   const handleNextStep = () => {
@@ -54,7 +52,12 @@ export default function NewBookListPage() {
         },
         ...novels,
       ]);
-      setNewBookDetails({ id:"", name: "", author: "", description: "" , type:"B"});
+      setNewBookDetails({
+        id: "",
+        name: "",
+        author: "",
+        description: "",
+      });
     }
   };
 
@@ -73,65 +76,77 @@ export default function NewBookListPage() {
           : book
       )
     );
-    setNewBookDetails({ id:"", name: "", author: "", description: "", type:"B" });
+    setNewBookDetails({
+      id: "",
+      name: "",
+      author: "",
+      description: "",
+    });
   };
 
   useEffect(() => {
     setIsPreview(listDetails.name.length < 10);
   }, [listDetails.name]);
   const HandleAddList = async () => {
-    setIsLoading(true)
+    setIsLoading(true);
     try {
-      const response = await fetch('/api/book-list', {
-        method: 'POST',
+      const response = await fetch("/api/book-list", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({
           ...listDetails,
-          books: novels
+          books: novels,
         }),
-      })
+      });
 
-      const result = await response.json()
-        // console.log("there was an error")
+      const result = await response.json();
+      // console.log("there was an error")
 
       if (!response.ok) {
-        console.log("there was an error")
-        console.log(result)
-        if(result && result.error.code === "P0001"){
-          console.log("000000")
-          console.log(result.error.message + "\n or make it private")
-          toast("Create new List failed",{
-            description: "A list with similar name exists, you can either change the name, or make it private",
-            action:{
-              label:"view the list",
-              onClick: () => router.push(`/lists/${result.list_id}`)
-            }
-          })
+        console.log("there was an error");
+        console.log(result);
+        if (result && result.error.code === "P0001") {
+          console.log("000000");
+          console.log(result.error.message + "\n or make it private");
+          toast("Create new List failed", {
+            description:
+              "A list with similar name exists, you can either change the name, or make it private",
+            action: {
+              label: "view the list",
+              onClick: () => router.push(`/lists/${result.list_id}`),
+            },
+          });
         }
-        return new Error(result.error || 'Failed to create book list')
+        return new Error(result.error || "Failed to create book list");
       }
-      if (result.error){
-        console.log("there was an error")
-        toast(result.error)
-      }      
-      setIsRedirect(true)
-      console.log(result)
-      router.push(`/lists/${result.list_id}`)
-
+      if (result.error) {
+        console.log("there was an error");
+        toast(result.error);
+      }
+      setIsRedirect(true);
+      console.log(result);
+      router.push(`/lists/${result.list_id}`);
     } catch (err) {
-      console.error('Error creating book list:', err)
-      console.log(err)
+      console.error("Error creating book list:", err);
+      console.log(err);
     } finally {
-      setIsLoading(false)
+      setIsLoading(false);
     }
-
-  }
+  };
 
   return (
     <div className="relative min-h-screen lg:flex">
-      {isLoading && <OverlayLoader text={isRedirect ? "list has been created. Redirect!" : "we are adding your list to teh database"} />}
+      {isLoading && (
+        <OverlayLoader
+          text={
+            isRedirect
+              ? "list has been created. Redirect!"
+              : "we are adding your list to teh database"
+          }
+        />
+      )}
       {/* Form Section */}
       <div
         className={`relative bg-gradient-to-b from-primary-400/10 to-primary-600/10 dark:from-primary-900 dark:to-primary-950 lg:w-1/2 ${
@@ -193,13 +208,18 @@ export default function NewBookListPage() {
       </div>
 
       {/* Toggle Button */}
-        <div className={cn("absolute top-2 right-4 z-20 flex items-center space-x-2",buttonVariants({variant: "secondary"}) )}>
-          <div>
-            Preview
-          </div>
-          <Switch onClick={() => setShowPreview(!showPreview)}  checked={showPreview}/>
-
-        </div>
+      <div
+        className={cn(
+          "absolute top-2 right-4 z-20 flex items-center space-x-2",
+          buttonVariants({ variant: "secondary" })
+        )}
+      >
+        <div>Preview</div>
+        <Switch
+          onClick={() => setShowPreview(!showPreview)}
+          checked={showPreview}
+        />
+      </div>
     </div>
   );
 }

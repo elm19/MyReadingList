@@ -97,7 +97,7 @@ const CardList = ({
                       : "M12 3c4.97 0 9 4.03 9 9s-4.03 9-9 9-9-4.03-9-9 4.03-9 9-9zm0 0c2.5 0 4.5 4.03 4.5 9s-2 9-4.5 9-4.5-4.03-4.5-9 2-9 4.5-9zm0 0h9m-9 0H3"}
                     />
                   </svg>
-                  <span>{type==="lists"  ?follower_count+ "followers"  : source || "N/A"}</span>
+                  <span>{type==="lists"  ?follower_count+ " followers"  : source || "N/A"}</span>
                 </div>
               </div>
             </div>

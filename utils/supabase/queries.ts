@@ -28,7 +28,11 @@ interface BookList {
   last_item: LastItemData; // last_item is now an OBJECT, not an array
 }
 
-export default async function getBookLists(page: number = 1, sort: number = 0, search: string = "") {
+export default async function getBookLists(
+  page: number = 1,
+  sort: number = 0,
+  search: string = ""
+) {
   // Number of items per page
   const from = (page - 1) * perPage; // Calculate the offset for
   const to = from + perPage - 1;
@@ -50,7 +54,7 @@ export default async function getBookLists(page: number = 1, sort: number = 0, s
   query = query.order(sortBy, { ascending: false }).range(from, to);
 
   const { data: bookLists, error, count } = await query;
-  console.log(bookLists)
+  console.log(bookLists);
   if (error) {
     throw new Error(error.message);
   }
@@ -183,7 +187,6 @@ export const isItTracked = async (id: string) => {
   return { isFollowing: true };
 };
 
-
 export async function getBooks(
   page: number = 1,
   sort: number = 0,
@@ -200,7 +203,7 @@ export async function getBooks(
     .select(
       "id, name, author, description, is_complete, added_at, list_count, source_id",
       { count: "exact" }
-    )
+    );
 
   if (search && search.length >= 7) {
     query = query.or(`name.ilike.%${search}%`);
@@ -213,4 +216,35 @@ export async function getBooks(
     throw new Error(error.message);
   }
   return { books: books, count: count };
+}
+
+export async function getBookData(id: string) {
+  const { supabase } = await getUser();
+
+  const { data, error } = await supabase
+    .from("books")
+    .select(
+      `name, description,author, rating, source_id, book_tags(tag_id), list_items(added_at,profiles(username), book_lists:book_list_id(name, item_count))`
+    )
+    .eq("id", id)
+    .single();
+  if (error) {
+    console.error("Error fetching book data:", error.message);
+    throw new Error("Failed to fetch book data");
+  }
+  console.log(error);
+
+  return data  as unknown as {
+    name: string
+    description: string;
+    author: string;
+    rating: number;
+    source_id: string;
+    book_tags: { tag_id: string }[];
+    list_items: {
+      added_at: string;
+      profiles: { username: string };
+      book_lists: { name: string; item_count: number };
+    }[];
+  };
 }

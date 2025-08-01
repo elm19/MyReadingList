@@ -16,7 +16,7 @@ interface BookListEditorProps {
   handleAddBook: () => void;
   newBookDetails: Novel;
   setNewBookDetails: (arg: Novel) => void;
-  HandleAddList: () => void
+  HandleAddList: () => void;
 }
 
 export const BookListEditor = ({
@@ -63,7 +63,13 @@ export const BookListEditor = ({
             newBookDescription={newBookDetails.description}
           />
         </h3>
-        <Button size={"lg"} disabled={novels.length<=1} onClick={HandleAddList}>Finish Edit</Button>
+        <Button
+          size={"lg"}
+          disabled={novels.length <= 1}
+          onClick={HandleAddList}
+        >
+          Finish Edit
+        </Button>
       </div>
 
       {novels.length === 0 ? (

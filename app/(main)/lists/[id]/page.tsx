@@ -18,16 +18,10 @@ interface PageProps {
   params: Promise<{ id: string }>;
 }
 
-/**
- * Fetches book list data from the database.
- * @param id The ID of the book list.
- * @returns The book list data.
- * @throws Error if fetching data fails.
- */
+
 async function getBookListData(id: string) {
   try {
     const data = await getListData(id);
-
     return data;
   } catch (error) {
     console.error("Error getting book list data:", error);
@@ -35,11 +29,6 @@ async function getBookListData(id: string) {
   }
 }
 
-/**
- * Generates metadata for the book list page.
- * @param params Page parameters containing the book list ID.
- * @returns Metadata object with title and description.
- */
 export async function generateMetadata({
   params,
 }: PageProps): Promise<Metadata> {
@@ -106,7 +95,7 @@ export default async function BookListPage({ params }: PageProps) {
             <div className="flex flex-col gap-2 ">
               <div>Last updated {lastUpdatedDate}</div>
               <div className="flex gap-2 items-center">
-                <span>Built by </span>
+                <span>Written by </span>
 
                 {(contributors as string[]).map((username) => (
                   <Badge key={username} variant="secondary">

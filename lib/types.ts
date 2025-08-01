@@ -12,7 +12,6 @@ export interface Novel {
   author: string;
   description: string;
   is_complete?: boolean;
-  type: 'B'| 'AC' | 'EN'
 }
 
 export interface List {
