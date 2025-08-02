@@ -10,6 +10,14 @@ const bricolage = Bricolage_Grotesque({
   subsets: ["latin"],
 });
 
+export const metadata = {
+  title: "OurReadingList",
+  description: "Discover and manage your reading lists with OurReadingList.",
+  robots:{
+    index: false,
+  }
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{

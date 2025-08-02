@@ -13,6 +13,7 @@ import MainBreadcrumb from "@/components/layout/MainBreadcrumb";
 import FollowListButton from "@/components/book-lists/FollowListButton";
 import BookListItemMenu from "@/components/book-lists/BookListItemMenu";
 import ExplainHoverCard from "@/components/book-lists/ExplainHoverCard";
+import BlogLayout from "@/components/layout/BlogLayout";
 
 interface PageProps {
   params: Promise<{ id: string }>;
@@ -84,84 +85,93 @@ export default async function BookListPage({ params }: PageProps) {
     console.log(isFollowing);
 
     return (
-      <div className="w-full pt-10 min-h-3xl max-w-4xl mx-auto px-4 flex flex-col rounded-lg">
-        {/* Header Section */}
-        <MainBreadcrumb page="lists" />
-        <div className="flex flex-col gap-4 items-start mb-6">
-          <h1 className="text-4xl capitalize font-bold text-gray-900 dark:text-gray-100 mb-3">
-            {list.name}
-          </h1>
-          <div className="flex md:items-center gap-4 justify-between w-full flex-col md:flex-row text-sm text-gray-500 dark:text-gray-400">
-            <div className="flex flex-col gap-2 ">
-              <div>Last updated {lastUpdatedDate}</div>
-              <div className="flex gap-2 items-center">
-                <span>Written by </span>
+      <BlogLayout
+        sections={list.list_items.map((item: { books: Novel }) => ({
+          id: item.books.id,
+          title: item.books.name,
+        }))}
+      >
+        <div className="w-full pt-10 min-h-3xl max-w-4xl mx-auto px-4 flex flex-col rounded-lg">
+          {/* Header Section */}
+          <MainBreadcrumb page="lists" />
+          <div className="flex flex-col gap-4 items-start mb-6">
+            <h1 className="text-4xl capitalize font-bold text-gray-900 dark:text-gray-100 mb-3">
+              {list.name}
+            </h1>
+            <div className="flex md:items-center gap-4 justify-between w-full flex-col md:flex-row text-sm text-gray-500 dark:text-gray-400">
+              <div className="flex flex-col gap-2 ">
+                <div>Last updated {lastUpdatedDate}</div>
+                <div className="flex gap-2 items-center">
+                  <span>{"built by"} </span>
 
-                {(contributors as string[]).map((username) => (
-                  <Badge key={username} variant="secondary">
-                    <Link href={`profile/${username}`}>{username}</Link>
-                  </Badge>
-                ))}
+                  {(contributors as string[]).map((username) => (
+                    <Badge key={username} variant="secondary">
+                      <Link href={`profile/${username}`}>{username}</Link>
+                    </Badge>
+                  ))}
+                </div>
               </div>
+              <FollowListButton
+                FollowerCount={list.follower_count}
+                isFollowing={isFollowing}
+                listId={list.id}
+              />
             </div>
-            <FollowListButton
-              FollowerCount={list.follower_count}
-              isFollowing={isFollowing}
-              listId={list.id}
-            />
           </div>
-        </div>
 
-        {/* Description Section */}
-        <div className="mb-8">
-          <p className="whitespace-pre-wrap">
-            {list.description || "This list has no description yet."}
-          </p>
-        </div>
-
-        <Separator className="my-6" />
-
-        {/* Novels Section */}
-        <div>
-          {list.list_items.length === 0 ? (
-            <p className="text-gray-500 dark:text-gray-400">
-              No books have been added to this list yet.
+          {/* Description Section */}
+          <div className="mb-8">
+            <p className="whitespace-pre-wrap">
+              {list.description || "This list has no description yet."}
             </p>
-          ) : (
-            <ul className="space-y-8">
-              {list.list_items.map(
-                (
-                  elem: { description: string; books: Novel },
-                  index: number
-                ) => (
-                  <li key={elem.books.id}>
-                    <div className="flex items-center justify-between mb-2">
-                      <h3 className="text-xl capitalize font-semibold text-gray-900 dark:text-gray-100 flex items-center">
-                        <Link href={`/books/${elem.books.id}`}>
-                          {index + 1}. {elem.books.name}{" "}
-                          {elem.books.author ? `By ${elem.books.author}` : ""}
+          </div>
+
+          <Separator className="my-6" />
+
+          {/* Novels Section */}
+          <div>
+            {list.list_items.length === 0 ? (
+              <p className="text-gray-500 dark:text-gray-400">
+                No books have been added to this list yet.
+              </p>
+            ) : (
+              <ul className="space-y-8">
+                {list.list_items.map(
+                  (
+                    elem: { description: string; books: Novel },
+                    index: number
+                  ) => (
+                    <li id={elem.books.id} key={elem.books.id}>
+                      <div className="flex items-center justify-between mb-2">
+                        <h3
+                          className="text-xl capitalize font-semibold text-gray-900 dark:text-gray-100 flex items-center"
+                        >
+                          <Link href={`/books/${elem.books.id}`}>
+                            {index + 1}. {elem.books.name}{" "}
+                            {elem.books.author ? `By ${elem.books.author}` : ""}
                           </Link>
                           {!elem.books.is_complete && <ExplainHoverCard />}
-                      </h3>
-                    </div>
+                        </h3>
+                      </div>
 
-                    <div className="pl-6 border-l-2 border-gray-200 dark:border-gray-700">
-                      <p className="text-gray-700 dark:text-gray-300 whitespace-pre-wrap">
-                        {elem.description || "No description available."}
-                      </p>
-                      <BookListItemMenu />
-                    </div>
-                  </li>
-                )
-              )}
-            </ul>
-          )}
+                      <div className="pl-6 border-l-2 border-gray-200 dark:border-gray-700">
+                        <p className="text-gray-700 dark:text-gray-300 whitespace-pre-wrap">
+                          {elem.description || "No description available."}
+                        </p>
+                        <BookListItemMenu />
+                      </div>
+                    </li>
+                  )
+                )}
+              </ul>
+            )}
+          </div>
+
+          {/* Disclaimer Section */}
+          <Separator className="my-8 mt-20 self-end" />
+          <BookListDisclaimer />
         </div>
-
-        {/* Disclaimer Section */}
-        <Separator className="my-8 mt-20 self-end" />
-        <BookListDisclaimer />
-      </div>
+      </BlogLayout>
     );
   } catch (error) {
     // Error handling for when the book list cannot be loaded

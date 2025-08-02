@@ -30,7 +30,7 @@ export const SearchInput = () => {
         <Popover>
           <PopoverTrigger asChild>
             <Button variant={"ghost"}>
-              <Search className="h-8 w-8" />
+              <Search aria-label="search button" className="h-8 w-8" />
             </Button>
           </PopoverTrigger>
           <PopoverContent className="mr-10">

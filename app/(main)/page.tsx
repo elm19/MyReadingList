@@ -3,7 +3,7 @@ import type { Metadata } from 'next';
 import { getUser } from '../(auth)/actions';
 
 export const metadata: Metadata = {
-  title: "OUrReadingList - Home",
+  title: "OurReadingList - Home",
   description: "Discover, curate, and share your reading journey with OurReadingList.",
 };
 

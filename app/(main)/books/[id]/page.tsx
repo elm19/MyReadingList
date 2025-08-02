@@ -13,7 +13,7 @@ import Link from "next/link";
 import { getBookData } from "@/utils/supabase/queries";
 import { Metadata } from "next";
 import { Badge } from "@/components/ui/badge";
-import BackToTopButton from "@/components/BackToTopButton";
+import BlogLayout from "@/components/layout/BlogLayout";
 
 interface PageProps {
   params: Promise<{ id: string }>;
@@ -68,7 +68,12 @@ export default async function BookDetailsPage({ params }: PageProps) {
   ];
 
   return (
-    <div className="w-full pt-10 min-h-screen mx-auto px-4 md:p-4 m-auto flex justify-between rounded-lg">
+    <BlogLayout
+      sections={[
+        { id: "details", title: "Details" },
+        { id: "mentioned-in", title: "Mentioned In" },
+      ]}
+    >
       <div className="w-full pt-10 min-h-screen max-w-4xl mx-auto flex flex-col rounded-lg">
         <MainBreadcrumb page="books" />
         <div className=" gap-4 inline items-start mb-6">
@@ -77,7 +82,7 @@ export default async function BookDetailsPage({ params }: PageProps) {
             <span className="text-xl text-gray-700 dark:text-gray-300 ">
               By {book.author}, On
             </span>
-            <Badge>{book.source_id}</Badge>
+            <Badge>{book.source_id}</Badge> 
           </div>
         </div>
 
@@ -104,8 +109,8 @@ export default async function BookDetailsPage({ params }: PageProps) {
           ))}
         </div>
 
-        <div className="flex items-center justify-between gap-4 mb-8">
-          <div className="flex items-center gap-2">
+        <div className="flex items-center w-full md:flex-row flex-col  justify-between gap-4 mb-8">
+          <div className="flex w-full items-center justify-between md:justify-normal gap-2">
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button>Add to a List</Button>
@@ -120,8 +125,11 @@ export default async function BookDetailsPage({ params }: PageProps) {
               <Button variant="outline">Contribute</Button>
             </Link>
           </div>
-          <Link className="self-end" href={`/books/${"some-book-id"}/edit`}>
-            <Button size={"lg"} variant="destructive">
+          <Link
+            className="self-end w-full md:w-auto"
+            href={`/books/${"some-book-id"}/edit`}
+          >
+            <Button className="w-full" size={"lg"} variant="destructive">
               Read Now
             </Button>
           </Link>
@@ -195,10 +203,6 @@ export default async function BookDetailsPage({ params }: PageProps) {
           </div>
         </div>
       </div>
-
-      <div className="w-full hidden md:block max-w-sm px-4 py-6 rounded-lg">
-        <BackToTopButton />
-      </div>
-    </div>
+    </BlogLayout>
   );
 }
